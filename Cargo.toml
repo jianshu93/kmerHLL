@@ -1,0 +1,17 @@
+[package]
+name = "kmerHLL"
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "kmer counting, hyperloglog, probabilistic counting"
+
+
+[[bin]]
+name = "kmerHLL"
+path = "src/main.rs"
+
+[dependencies]
+clap = "4.1"
+needletail = "0.5.1"
+streaming_algorithms = {version = "0.3.0", features = ["nightly"]}
+rayon = "1.5"
