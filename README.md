@@ -1,7 +1,7 @@
 # kmerHLL
 This crate provides implementation of probabilistic algorithms to count unique kmers in sequence files via HyperLogLog(HLL)-like algorithms.
 
-It is developed for daily sequence processing. I did not find a stand-alone Rust program for counting kmers in sequence files. It is also very useful for MinHash algorithms like FracMinHash to estimate Jaccard index from containment index, in which the carginality of each genome files must be known. Exact algorithms for real-world genome/metagenomes files are not practical. 
+It is developed for daily sequence processing. I did not find a stand-alone Rust program for counting kmers in sequence files. It is also very useful for MinHash algorithms like FracMinHash to estimate Jaccard index from containment index, in which the carginality of each genome files must be known. Exact algorithms for real-world genome/metagenomes files are not practical. Raw fasta and zipped fasta file format are supported.
 
 It also estiamtes the Jaccard index via the inclusion-exclusion rule after knowing the cardinality of two genomes and their union.
 
