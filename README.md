@@ -1,11 +1,11 @@
 # kmerHLL
-This crate provides implementation of probabilistic algorithms to count unique kmers in sequence files via HyperLogLog(HLL)-like algorithms.
+This crate provides implementation of probabilistic algorithms to count unique kmers in sequence files via HyperLogLog(HLL)-like algorithms. I provide 2 options, HyerLogLog and HyperMinHash, the latter is even more space efficient and also can be used for Jaccard similarity estimation. I observed a 6% relative error at Jaccard similarity 0.01667 (consistent with the paper), which can be a problem if better accuracy is required. Then you should consider MinHash such as those implemented in BinDash 1/2.
 
 It is developed for daily sequence processing. I did not find a stand-alone Rust program for counting kmers in sequence files. It is also very useful for MinHash algorithms like FracMinHash to estimate Jaccard index from containment index, in which the carginality of each genome files must be known. Exact algorithms for real-world genome/metagenomes files are not practical. Raw fasta and zipped fasta file format are supported.
 
-It also estiamtes the Jaccard index via the inclusion-exclusion rule after knowing the cardinality of two genomes and their union.
+In the hyperloglog case, it also estiamtes the Jaccard index via the inclusion-exclusion rule after knowing the cardinality of two genomes and their union. But for the HyperMinHash case, similarity is already there in the default sketching function.
 
-## Install (nightly Rust must be installed)
+## Install (Rust must be installed, <= v1.74, Since the streaming crate is not maintained any more, packed_simd feature is not supported in new version of Rust)
 
 ```bash
 git clone https://github.com/jianshu93/kmerHLL
@@ -52,5 +52,7 @@ which is the Cramér Rao lower bound for such counting algorithms.
 Flajolet, Philippe, Éric Fusy, Olivier Gandouet, and Frédéric Meunier. "Hyperloglog: the analysis of a near-optimal cardinality estimation algorithm." Discrete mathematics & theoretical computer science Proceedings (2007).
 
 Heule, Stefan, Marc Nunkesser, and Alexander Hall. "Hyperloglog in practice: Algorithmic engineering of a state of the art cardinality estimation algorithm." In Proceedings of the 16th International Conference on Extending Database Technology, pp. 683-692. 2013.
+
+Yu, Yun William, and Griffin M. Weber. "Hyperminhash: Minhash in loglog space." IEEE transactions on knowledge and data engineering 34.1 (2020): 328-339.
 
 
