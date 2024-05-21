@@ -53,7 +53,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 fn process_file(file_name: &str, kmer_length: usize) -> Result<HyperLogLog<Vec<u8>>, Box<dyn Error>> {
     let mut reader = parse_fastx_file(file_name)?;
     let hll = Arc::new(Mutex::new(HyperLogLog::<Vec<u8>>::new(0.00408)));
-    let (sender, receiver) = bounded(20);
+    let (sender, receiver) = bounded(10);
 
     // Spawn a thread to read sequences and batch them
     let reader_thread = thread::spawn(move || {
@@ -61,7 +61,7 @@ fn process_file(file_name: &str, kmer_length: usize) -> Result<HyperLogLog<Vec<u
         while let Some(result) = reader.next() {
             if let Ok(record) = result {
                 batch.push(record.seq().to_vec());
-                if batch.len() == 40000 {
+                if batch.len() == 5000 {
                     sender.send(batch.clone()).expect("Failed to send batch");
                     batch = Vec::new(); // Reset the batch
                 }
